@@ -2,13 +2,13 @@ import random
 import math
 
 def stare_initiala(n):
-    """Generează o stare inițială aleatoare."""
+    """Genereaza o stare initiala aleatoare."""
     stare = list(range(n))
     random.shuffle(stare)
     return stare
 
 def calculeaza_cost(stare):
-    """Calculează costul unei stări."""
+    """Calculeaza costul unei stari."""
     cost = 0
     n = len(stare)
     for i in range(n):
@@ -18,7 +18,7 @@ def calculeaza_cost(stare):
     return cost
 
 def obtine_vecin(stare):
-    """Obține un vecin al stării curente."""
+    """Obtine un vecin al starii curente."""
     vecin = stare.copy()
     i = random.randint(0, len(stare)-1)
     j = random.randint(0, len(stare)-1)
@@ -26,7 +26,7 @@ def obtine_vecin(stare):
     return vecin
 
 def calire_simulata(n, temp_initiala, rata_racire):
-    """Aplică algoritmul de recăldire simulată."""
+    """Aplica algoritmul de calire simulata."""
     stare_curenta = stare_initiala(n)
     cost_curent = calculeaza_cost(stare_curenta)
     cea_mai_buna_stare = stare_curenta.copy()
@@ -50,4 +50,4 @@ def calire_simulata(n, temp_initiala, rata_racire):
 
         temperatura *= rata_racire
 
-    return cea_mai_buna_stare
+    return cea_mai_buna_stare, cea_mai_bun_cost

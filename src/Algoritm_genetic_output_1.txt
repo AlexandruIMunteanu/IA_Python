@@ -1,0 +1,3 @@
+Cel mai bun individ:
+1 3 0 2
+Fitness: 1.0

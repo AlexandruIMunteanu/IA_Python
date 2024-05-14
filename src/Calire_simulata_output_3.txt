@@ -1,0 +1,3 @@
+Starea finala a calirii simulata:
+[2, 0, 5, 7, 1, 3, 6, 4]
+Costul starii finale: 1

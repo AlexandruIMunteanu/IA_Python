@@ -1,7 +1,7 @@
 import random
 
 def genereaza_populatie_initiala(dimensiune_populatie, n_regine):
-    """Generează o populație inițială pentru algoritmul genetic."""
+    """Genereaza o populatie initiala pentru algoritmul genetic."""
     populatie = []
     for _ in range(dimensiune_populatie):
         individ = list(range(n_regine))
@@ -10,23 +10,23 @@ def genereaza_populatie_initiala(dimensiune_populatie, n_regine):
     return populatie
 
 def calculeaza_fitness(individ):
-    """Calculează fitnessul unui individ."""
+    """Calculeaza fitnessul unui individ."""
     fitness = 0
     n = len(individ)
     for i in range(n):
         for j in range(i+1, n):
-            # Verifică dacă două regine sunt pe aceeași linie orizontală sau pe aceeași diagonală
+            # Verifica daca doua regine sunt pe aceeasi linie orizontala sau pe aceeasi diagonala
             if individ[i] == individ[j] or abs(individ[i] - individ[j]) == j - i:
                 fitness += 1
     return 1 / (fitness + 1)
 
 def selecteaza_parinti(populatie, scoruri_fitness):
-    """Selectează părinții pentru crossover pe baza scorurilor de fitness."""
+    """Selecteaza parintii pentru crossover pe baza scorurilor de fitness."""
     selectati = random.choices(populatie, weights=scoruri_fitness, k=2)
     return selectati[0], selectati[1]
 
 def crossover(parinte1, parinte2):
-    """Realizează crossover între doi părinți."""
+    """Realizeaza crossover intre doi parinti."""
     n = len(parinte1)
     punct_crossover = random.randint(1, n-1)
     copil1 = parinte1[:punct_crossover] + parinte2[punct_crossover:]
@@ -34,31 +34,34 @@ def crossover(parinte1, parinte2):
     return copil1, copil2
 
 def mutatie(individ, rata_mutatie):
-    """Aplică mutația unui individ."""
+    """Aplica mutatia unui individ."""
     n = len(individ)
     for i in range(n):
-        # Verifică dacă va avea loc mutația pentru gena curentă
+        # Verifica daca va avea loc mutatia pentru gena curenta
         if random.random() < rata_mutatie:
             j = random.randint(0, n-1)
             individ[i], individ[j] = individ[j], individ[i]
     return individ
 
 def algoritm_genetic(n_regine, dimensiune_populatie, rata_mutatie, num_generatii):
-    """Rezolvă problema N-Regine folosind un algoritm genetic."""
+    """Rezolva problema N-Regine folosind un algoritm genetic."""
     populatie = genereaza_populatie_initiala(dimensiune_populatie, n_regine)
 
-    for _ in range(num_generatii):
-        scoruri_fitness = [calculeaza_fitness(individ) for individ in populatie]
-        noua_populatie = []
+    with open("Algoritm_genetic_output.txt", "w") as file:
+        for i in range(num_generatii):
+            scoruri_fitness = [calculeaza_fitness(individ) for individ in populatie]
+            noua_populatie = []
 
-        for _ in range(dimensiune_populatie // 2):
-            parinte1, parinte2 = selecteaza_parinti(populatie, scoruri_fitness)
-            copil1, copil2 = crossover(parinte1, parinte2)
-            copil1 = mutatie(copil1, rata_mutatie)
-            copil2 = mutatie(copil2, rata_mutatie)
-            noua_populatie.extend([copil1, copil2])
+            for _ in range(dimensiune_populatie // 2):
+                parinte1, parinte2 = selecteaza_parinti(populatie, scoruri_fitness)
+                copil1, copil2 = crossover(parinte1, parinte2)
+                copil1 = mutatie(copil1, rata_mutatie)
+                copil2 = mutatie(copil2, rata_mutatie)
+                noua_populatie.extend([copil1, copil2])
 
-        populatie = noua_populatie
+            populatie = noua_populatie
+
+            cel_mai_bun_individ = max(populatie, key=calculeaza_fitness)            
 
     cel_mai_bun_individ = max(populatie, key=calculeaza_fitness)
     return cel_mai_bun_individ

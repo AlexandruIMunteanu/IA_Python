@@ -1,28 +1,18 @@
 def nearest_neighbor(graph, start):
-    
-    start = 0
-    # Exemplu de input
-    graph = [
-    [0, 10, 15, 20],
-    [10, 0, 35, 25],
-    [15, 35, 0, 30],
-    [20, 25, 30, 0]]
-
-    num_cities = len(graph)
-    visited = set()
-    path = [start]
-    visited.add(start)
-    while len(path) < num_cities:
-        current_city = path[-1]
-        nearest_city = None
-        min_distance = float('inf')
-        for next_city in range(num_cities):
+    num_cities = len(graph)  # Numarul total de orase
+    visited = set()  # Un set pentru a urmari orasele deja vizitate
+    path = [start]  # Lista pentru a stoca traseul parcurgerii
+    visited.add(start)  # Adauga orasul de start in setul de orase vizitate
+    while len(path) < num_cities:  # Continua pana cand toate orasele sunt vizitate
+        current_city = path[-1]  # Orasul curent este ultimul oras adaugat in traseu
+        nearest_city = None  # Initial, cel mai apropiat oras este necunoscut
+        min_distance = float('inf')  # Initial, distanta minima este infinit
+        for next_city in range(num_cities):  # Parcurge toate orasele
             if next_city not in visited and graph[current_city][next_city] < min_distance:
-                nearest_city = next_city
-                min_distance = graph[current_city][next_city]
-        if nearest_city is not None:
-            path.append(nearest_city)
-            visited.add(nearest_city)
-    print("Traseul optim:", path)
-    return path
-
+                # Verifica daca orasul urmator nu a fost vizitat si are o distanta mai mica
+                nearest_city = next_city  # Actualizeaza cel mai apropiat oras
+                min_distance = graph[current_city][next_city]  # Actualizeaza distanta minima
+        if nearest_city is not None:  # Daca s-a gasit un oras nevizitat
+            path.append(nearest_city)  # Adauga acest oras in traseu
+            visited.add(nearest_city)  # Marcheaza orasul ca vizitat
+    return path  # Returneaza traseul parcurgerii

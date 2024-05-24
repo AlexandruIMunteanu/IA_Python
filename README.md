@@ -27,21 +27,6 @@
 git clone https://github.com/AlexandruIMunteanu/IA_Python
 ```
 
-
-```bash
-cd IA_Python
-```
-
-## Instalare rapidă și rulare
-
-### Pe Windows
-
-```batch
-.\start.bat
-```
-
-## Instalare manuală
-
 ### Navigare la directorul proiectului
 
 ```bash
